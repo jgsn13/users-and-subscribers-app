@@ -4,6 +4,18 @@ import { AppDataSource } from "../data-source";
 import User from "../models/User";
 
 class UserController {
+
+  public async index(req: Request, res: Response) {
+    try {
+      const repository = AppDataSource.getRepository(User);
+      const users = await repository.find();
+
+      return res.json({ users });
+    } catch (error) {
+      return res.json({ error });
+    }
+  }
+
   public async store(req: Request, res: Response) {
     try {
       const repository = AppDataSource.getRepository(User);
