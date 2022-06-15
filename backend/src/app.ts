@@ -3,7 +3,7 @@ import express from "express";
 
 import "./database/connection";
 
-import routes from "./routes/index"
+import routes from "./routes"
 
 class Server {
   public app = express();
