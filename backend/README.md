@@ -1,0 +1,18 @@
+# Users and Subscribers API
+### I'm currently using Mysql/Mariadb so don't forget to create a .env file with the following content:
+```
+DB=<database_name>
+DB_HOST=<database_host>
+DB_PORT=<database_port>
+DB_USERNAME=<database_user>
+DB_PASSWORD=<database_password>
+```
+
+### Use the following command to create new migrations:
+``` sh
+typeorm migration:create ./src/database/migrations/<NameOfTheMigration>
+```
+### ... then you can use the following command to run the migrations:
+```
+typeorm migration:run -d ./src/data-source.ts
+```
