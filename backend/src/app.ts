@@ -1,4 +1,8 @@
+import "reflect-metadata";
 import express from "express";
+
+import "./database/connection";
+
 import routes from "./routes/index"
 
 class Server {
