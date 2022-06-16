@@ -26,7 +26,7 @@ class AuthController {
         return res.sendStatus(401);
       }
 
-      const token = jwt.sign({ id: user.id }, String(process.env.JWT_PAYLOAD), { expiresIn: "1d" });
+      const token = jwt.sign({ id: user.id }, String(process.env.JWT_SECRET), { expiresIn: "1d" });
 
       delete user.password;
 
