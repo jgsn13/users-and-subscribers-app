@@ -11,6 +11,11 @@ router.put("/users", authMiddleware, userController.update);
 router.delete("/users", authMiddleware, userController.delete);
 
 router.post("/authenticate", authController.authenticate);
-router.post("/subscribers", subscriberController.store);
+
+router.post("/subscribers", authMiddleware, subscriberController.store);
+router.get("/subscribers", authMiddleware, subscriberController.index);
+router.get("/subscribers/:id", authMiddleware, subscriberController.show);
+router.put("/subscribers/:id", authMiddleware, subscriberController.update);
+router.delete("/subscribers/:id", authMiddleware, subscriberController.delete);
 
 export default router;
