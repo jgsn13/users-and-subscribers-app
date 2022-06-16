@@ -1,5 +1,5 @@
 import { IsEmail, Length } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("subscribers")
 class Subscriber {
@@ -45,6 +45,12 @@ class Subscriber {
   @Column()
   @Length(3)
   hear_about_the_event: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
 
 export default Subscriber;
