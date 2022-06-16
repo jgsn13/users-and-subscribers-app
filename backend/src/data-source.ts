@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   username: String(process.env.DB_USERNAME),
   password: String(process.env.DB_PASSWORD),
   database: String(process.env.DB),
-  entities: [
+  entities: [ // models
     "src/models/*.ts",
   ],
   migrations: [

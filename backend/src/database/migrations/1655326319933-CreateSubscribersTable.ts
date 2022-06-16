@@ -78,6 +78,14 @@ export class CreateSubscribersTable1655326319933 implements MigrationInterface {
           isUnique: false,
           isNullable: false,
         },
+        {
+          name: "created_at",
+          type: "timestamp",
+        },
+        {
+          name: "updated_at",
+          type: "timestamp",
+        }
       ]
     }));
   }
