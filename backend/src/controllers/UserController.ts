@@ -95,7 +95,7 @@ class UserController {
       await repository.delete({ id: userId });
 
       return res.json({
-        message: "Usuário deletado com sucesso."
+        deleted: true 
       })
     } catch {
       return res.status(400).json(null);
