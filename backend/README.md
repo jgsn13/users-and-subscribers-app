@@ -6,7 +6,10 @@ DB_HOST=<database_host>
 DB_PORT=<database_port>
 DB_USERNAME=<database_user>
 DB_PASSWORD=<database_password>
+JWT_SECRET=<jwt_secret>
+SECRET_KEY=<secret_key>
 ```
+**SECRET_KEY is used to create new users.**
 
 ### Use the following command to create new migrations:
 ``` sh
