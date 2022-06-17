@@ -15,4 +15,12 @@ export const Nav = styled.nav`
     display: flex;
     align-items: center;
   }
+
+  a:hover {
+    color: #eeeeee;
+  }
+`;
+
+export const Label = styled.p`
+ margin: 0 0 0 5px;
 `
