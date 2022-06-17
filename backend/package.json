@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn nodemon --exec ts-node --files src/server.ts",
-    "typeorm": "typeorm-ts-node-esm"
+    "typeorm": "typeorm-ts-node-esm",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
