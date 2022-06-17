@@ -7,7 +7,7 @@ export class CreateSubscribersTable1655326319933 implements MigrationInterface {
       columns: [
         {
           name: "id",
-          type: "uuid",
+          type: "varchar",
           isPrimary: true,
           generationStrategy: "uuid",
           default: "UUID()"
