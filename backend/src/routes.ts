@@ -1,10 +1,14 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import subscriberController from "./controllers/SubscriberController";
 import userController from "./controllers/UserController";
 import authController from "./controllers/AuthController";
 import authMiddleware from "./middlewares/authMiddleware";
 
 const router = Router();
+
+router.use("/", (_req: Request, res: Response) => {
+  return res.send("Index");
+});
 
 router.post("/users", userController.store);
 router.put("/users", authMiddleware, userController.update);
