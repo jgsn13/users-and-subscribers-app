@@ -22,4 +22,8 @@ router.get("/subscribers/:id", authMiddleware, subscriberController.show);
 router.put("/subscribers/:id", authMiddleware, subscriberController.update);
 router.delete("/subscribers/:id", authMiddleware, subscriberController.delete);
 
+router.use("*", (_req: Request, res: Response) => {
+  return res.status(404).send("What?");
+})
+
 export default router;
