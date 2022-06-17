@@ -22,8 +22,8 @@ router.get("/", (_req: Request, res: Response) => {
   return res.send("Index");
 });
 
-router.use((_req: Request, res: Response) => {
-  return res.status(404).send("What?");
+router.use((req: Request, res: Response) => {
+  return res.status(404).send(`"${req.url}" What???`);
 });
 
 export default router;
