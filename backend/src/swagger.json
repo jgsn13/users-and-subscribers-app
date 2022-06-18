@@ -1,0 +1,367 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Uma API simples para o gerenciamento de inscritos de um evento.",
+    "title": "API de Usuários e Inscritos",
+    "contact": {
+      "email": "joaquim.ibi@gmail.com"
+    }
+  },
+  "host": "http://54.164.229.230",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operações com usuários"
+    },
+    {
+      "name": "authenticate",
+      "description": "Gera um bearer token do tipo JWT"
+    },
+    {
+      "name": "subscribers",
+      "description": "Operações com inscritos"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Cadastra um novo usuário",
+        "operationId": "store",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Busca as informações do usuário logado",
+        "operationId": "show",
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": [
+              "get:users"
+            ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Atualiza o próprio usuário.",
+        "operationId": "update",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": [
+              "update:users"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Deleta o próprio usuário.",
+        "operationId": "delete",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": [
+              "delete:users"
+            ]
+          }
+        ]
+      }
+    },
+    "/authenticate": {
+      "post": {
+        "tags": [
+          "authenticate"
+        ],
+        "summary": "Gera um token JWT",
+        "operationId": "authenticate",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/subscribers": {
+      "post": {
+        "tags": [
+          "subscribers"
+        ],
+        "summary": "Cadastra um novo inscrito",
+        "operationId": "store",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": [
+              "post:subscribers"
+            ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "subscribers"
+        ],
+        "summary": "Busca todos os inscritos",
+        "operationId": "index",
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/subscribers/{subscriberId}": {
+      "get": {
+        "tags": [
+          "subscribers"
+        ],
+        "summary": "Busca um inscrito pelo id",
+        "operationId": "index",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+          "name": "subscribersId",
+          "in": "path",
+          "description": "ID do inscrito a ser buscado",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "subscribers"
+        ],
+        "summary": "Atualiza um inscrito pelo ID",
+        "operationId": "update",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+          "name": "subscribersId",
+          "in": "path",
+          "description": "ID do inscrito a ser buscado",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Subscriber"
+            }
+          }
+        ],
+        "security": [
+          {
+            "Bearer": [
+              "post:subscribers"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "subscribers"
+        ],
+        "summary": "Deleta um inscrito pelo ID",
+        "operationId": "delete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+          "name": "subscribersId",
+          "in": "path",
+          "description": "ID do inscrito a ser deletado",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+          }
+        ],
+        "security": [
+          {
+            "Bearer": [
+              "post:subscribers"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "secret_key": {
+          "type": "string"
+        }
+      }
+    },
+    "Subscriber": {
+      "type": "object",
+      "properties": {
+        "cpf": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone_number": {
+          "type": "string"
+        },
+        "cep": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "neighborhood": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "address_2": {
+          "type": "string"
+        },
+        "hear_about_the_event": {
+          "type": "string"
+        } 
+      }
+    }
+  }
+}

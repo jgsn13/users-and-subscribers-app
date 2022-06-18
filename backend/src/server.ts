@@ -8,7 +8,12 @@ import "./database/connection";
 import routes from "./routes"
 import requestLogger from "./middlewares/requestLogger";
 
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger.json";
+
 const app = express();
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(cors());
 app.use(helmet());
