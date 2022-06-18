@@ -19,11 +19,10 @@ router.get("/subscriber/:id", subscriberController.show);
 router.put("/subscriber/:id", authMiddleware, subscriberController.update);
 router.delete("/subscriber/:id", authMiddleware, subscriberController.delete);
 
-router.get("/", (req: Request, res: Response) => {
-  const ip = req.socket.remoteAddress.split(":").at(-1);
+router.get("/", (_req: Request, res: Response) => {
   return res.send(`
     <h1>Index!</h1>
-    <p>Visit ${req.protocol}://${ip}/api-docs</p>
+    <p>Visit /api-docs</p>
   `);
 });
 
