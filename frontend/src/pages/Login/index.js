@@ -2,7 +2,11 @@ import { Container } from "../../styles/GlobalStyles";
 import { Title, Paragraph } from "./styled";
 
 import { useDispatch } from "react-redux";
-import { clickAction } from "../../store/loggerSlice";
+import {
+  clickActionRequest,
+  clickActionSuccess,
+  clickActionFailure,
+} from "../../store/slices/logger/loggerSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -10,7 +14,7 @@ export default function Login() {
   const handleClick = (event) => {
     event.preventDefault();
 
-    dispatch(clickAction());
+    dispatch(clickActionRequest());
   }
 
   return (
