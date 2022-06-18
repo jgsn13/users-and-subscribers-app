@@ -27,7 +27,7 @@
         "http"
     ],
     "paths": {
-        "/users": {
+        "/user/register": {
             "post": {
                 "tags": [
                     "users"
@@ -57,7 +57,9 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/user": {
             "get": {
                 "tags": [
                     "users"
@@ -100,7 +102,7 @@
                         "name": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/UpdateUser"
                         }
                     }
                 ],
@@ -218,7 +220,7 @@
                 }
             }
         },
-        "/subscribers": {
+        "/subscriber/register": {
             "post": {
                 "tags": [
                     "subscribers"
@@ -255,7 +257,9 @@
                         ]
                     }
                 ]
-            },
+            }
+        },
+        "/subscribers": {
             "get": {
                 "tags": [
                     "subscribers"
@@ -277,7 +281,7 @@
                 }
             }
         },
-        "/subscribers/{subscriberId}": {
+        "/subscriber/{subscriberId}": {
             "get": {
                 "tags": [
                     "subscribers"
@@ -429,6 +433,23 @@
                     "type": "string"
                 },
                 "secret_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "UpdateUser": {
+            "type": "object",
+            "properties": {
+                "full_name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "current_password": {
                     "type": "string"
                 }
             }

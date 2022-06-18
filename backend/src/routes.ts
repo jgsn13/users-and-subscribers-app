@@ -6,25 +6,25 @@ import authMiddleware from "./middlewares/authMiddleware";
 
 const router = Router();
 
-router.post("/users", userController.store);
-router.get("/users", authMiddleware, userController.store);
-router.put("/users", authMiddleware, userController.update);
-router.delete("/users", authMiddleware, userController.delete);
+router.post("/user/register", userController.store);
+router.get("/user", authMiddleware, userController.show);
+router.put("/user", authMiddleware, userController.update);
+router.delete("/user", authMiddleware, userController.delete);
 
 router.post("/authenticate", authController.authenticate);
 
-router.post("/subscribers", authMiddleware, subscriberController.store);
+router.post("/subscriber/register", authMiddleware, subscriberController.store);
 router.get("/subscribers", subscriberController.index);
-router.get("/subscribers/:id", subscriberController.show);
-router.put("/subscribers/:id", authMiddleware, subscriberController.update);
-router.delete("/subscribers/:id", authMiddleware, subscriberController.delete);
+router.get("/subscriber/:id", subscriberController.show);
+router.put("/subscriber/:id", authMiddleware, subscriberController.update);
+router.delete("/subscriber/:id", authMiddleware, subscriberController.delete);
 
 router.get("/", (_req: Request, res: Response) => {
-  return res.send("Index");
+  return res.send("Index!");
 });
 
 router.use((req: Request, res: Response) => {
-  return res.status(404).send(`"${req.url}" What???`);
+  return res.status(404).send(`${req.url} What???`);
 });
 
 export default router;
