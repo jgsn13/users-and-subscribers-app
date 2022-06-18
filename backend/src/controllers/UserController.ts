@@ -41,6 +41,21 @@ class UserController {
     }
   }
 
+  public async show(req: Request, res: Response) {
+    try {
+      const repository = AppDataSource.getRepository(User)
+
+      const { userId } = req;
+
+      const user = await repository.findOne({ where: { id: userId } });
+
+      delete user.password;
+      return res.json(user);
+    } catch {
+      return res.status(400).json(null)
+    }
+  }
+
   public async update(req: Request, res: Response) {
     try {
       const repository = AppDataSource.getRepository(User);
