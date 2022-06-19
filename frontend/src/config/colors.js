@@ -1,6 +1,6 @@
 const colors = {
-  primaryColor: "#07C323",
-  primaryDarkColor: "#1A1D1A",
+  primaryColor: "#3574DC",
+  primaryDarkColor: "#1A1A1D",
   successColor: "#0197F6",
   infoColor: "#0197F6",
   errorColor: "#F2AF29",

@@ -1,0 +1,13 @@
+.go-back {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #eeeeee;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.go-back:hover {
+    background: #eeeeee;
+}

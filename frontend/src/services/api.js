@@ -1,7 +1,11 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://54.164.229.230",
-})
+  baseURL: "http://api.subscribers.joaquimgregorio.link",
+});
 
 export default api;
+
+export const statesApi = axios.create({
+  baseURL: "https://servicodados.ibge.gov.br/api/v1/localidades/estados",
+});

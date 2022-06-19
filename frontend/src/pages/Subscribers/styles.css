@@ -1,0 +1,18 @@
+.search-container {
+  margin: 20px 0;
+}
+
+.search-container .search-value {
+  margin: 16px auto;
+}
+
+.search-container .search-results {
+  margin: 16px auto;
+}
+
+.select-state {
+  padding: 5px 8px;
+  background: #eeeeee;
+  color: #1A1A1D;
+  border: 1px solid #3574DC;
+}

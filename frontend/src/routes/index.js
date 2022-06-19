@@ -12,15 +12,19 @@ export default function Routing() {
   return (
     <Routes>
       <Route exact path="/" element={<Subscribers />} />
-      <Route exact path="/subscriber" element={<Subscriber />} />
+      <Route exact path="/subscriber/:id" element={<Subscriber />} />
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Register />} />
-      <Route exact path="/user" element={
-        <PrivateRoute>
-          <User />
-        </PrivateRoute>
-      } />
-      <Route path="*" element={<Page404 />}/>
+      <Route
+        exact
+        path="/user"
+        element={
+          <PrivateRoute>
+            <User />
+          </PrivateRoute>
+        }
+      />
+      <Route path="*" element={<Page404 />} />
     </Routes>
   );
 }
