@@ -1,9 +1,9 @@
 import { Container } from "../../styles/GlobalStyles";
 
-export default function Login() {
+export default function Subscribers() {
   return (
     <Container>
-      <h1>Login</h1>
+      <h1>Subscribers</h1>
     </Container>
   );
 }

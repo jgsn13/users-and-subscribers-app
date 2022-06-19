@@ -1,12 +1,11 @@
-import { FaHome, FaUserPlus, FaSignOutAlt } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaHome, FaUserPlus, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
 import { Nav, Label } from "./styled";
 
 export default function Header() {
-  const buttonClicked = useSelector(state => state.logger.buttonClicked)
+  const isLoggedIn = true;
 
   return (
     <Nav>
@@ -14,15 +13,18 @@ export default function Header() {
         <FaHome size={22} />
         <Label>Home</Label>
       </Link>
-      <Link to="/register">
+      {isLoggedIn ? <Link to="/register">
         <FaUserPlus size={22} />
         <Label>Cadastro</Label>
-      </Link>
-      <Link to="/logout">
+      </Link> : ""}
+      {!isLoggedIn ? <Link to="/login">
+        <FaSignInAlt size={22} />
+        <Label>Login</Label>
+      </Link> : ""}
+      {isLoggedIn ? <Link to="/logout">
         <FaSignOutAlt size={22} />
         <Label>Sair</Label>
-      </Link>
-      <h1 style={{ color: "#fff" }}>{buttonClicked ? "Clicked" : "Not clicked"}</h1>
+      </Link> : ""}
     </Nav>
   );
 }
