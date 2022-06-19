@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { validate } from "class-validator";
+import validator from "validator";
 import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import User from "../models/User";
@@ -14,30 +14,38 @@ class UserController {
 
       const { full_name, email, password, secret_key } = req.body;
 
+      const errors: String[] = [];
+
       if (secret_key !== String(process.env.SECRET_KEY))
-        return res.sendStatus(401);
+        errors.push("Chave de registro inválida")
 
       const userExists = await repository.findOne({ where: { email } });
 
-      if (userExists) {
-        return res.sendStatus(409);
-      }
+      if (userExists)
+        errors.push("Email já existe")
 
-      const user = new User();
-      user.full_name = full_name;
-      user.email = email;
-      user.password = password;
+      if (full_name.length < 3 || full_name.length > 250)
+        errors.push("Nome precisa ter entre 3 e 250 caracteres")
 
-      const errors = await validate(user);
+      if (!validator.isEmail(email))
+        errors.push("Email inválido")
+
+      if (password.length < 6 || full_name.length > 50)
+        errors.push("Senha precisa ter entre 6 e 50 caracteres")
+
       if (errors.length > 0) {
-        throw new Error('Validation failed!')
+        return res.status(400).json(errors)
       } else {
+        const user = new User();
+        user.full_name = full_name;
+        user.email = email;
+        user.password = password
         await repository.manager.save(user);
         delete user.password;
         return res.json(user);
       }
     } catch {
-      return res.status(400).json(null)
+      return res.status(400).json(["Ocorreu um erro inesperado"]);
     }
   }
 
@@ -52,7 +60,7 @@ class UserController {
       delete user.password;
       return res.json(user);
     } catch {
-      return res.status(400).json(null)
+      return res.status(400).json(["Ocorreu um erro inesperado"]);
     }
   }
 
@@ -64,29 +72,50 @@ class UserController {
 
       const user = await repository.findOne({ where: { id: userId } });
 
+      const errors: String[] = [];
+
       const { email, full_name, password, current_password } = req.body;
 
       const isValidPassword = await bcrypt.compare(current_password, user.password);
 
-      if (!isValidPassword) return res.sendStatus(401);
+      if (!isValidPassword)
+        errors.push("Senha incorreta")
+
+      const userExists = await repository.findOne({ where: { email } });
+
+      if (userExists)
+        errors.push("Email já existe")
+
+      if (full_name.length < 3 || full_name.length > 250)
+        errors.push("Nome precisa ter entre 3 e 250 caracteres")
+
+      if (!validator.isEmail(email))
+        errors.push("Email inválido")
+
+      if (password.length < 6 || full_name.length > 50)
+        errors.push("Nova senha precisa ter entre 6 e 50 caracteres")
       
-      await repository.update(
-        {
-          id: userId
-        },
-        {
-          email: email || user.email,
-          full_name: full_name || user.full_name,
-          password: password || user.password,
-        }
-      )
+      if (errors.length > 0) {
+        return res.status(400).json(errors)
+      } else {
+        await repository.update(
+          {
+            id: userId
+          },
+          {
+            full_name: full_name || user.full_name,
+            email: email || user.email,
+            password: password || user.password,
+          }
+        )
 
-      const newUser = await repository.findOne({ where: { id: userId } });
+        const newUser = await repository.findOne({ where: { id: userId } });
 
-      delete newUser.password;
-      return res.json(newUser);
+        delete newUser.password;
+        return res.json(newUser);
+      }
     } catch {
-      return res.status(400).json(null);
+      return res.status(400).json(["Ocorreu um erro inesperado"]);
     }
   }
 
@@ -99,21 +128,27 @@ class UserController {
 
       const { password } = req.body;
 
-      if (!password) return res.status(401).json({
-        error: "Faltando a senha."
-      })
+      const errors: String[] = []
+
+      if (!password)
+        errors.push("Faltando a senha")
 
       const isValidPassword = await bcrypt.compare(password, user.password);
 
-      if (!isValidPassword) return res.sendStatus(401);
+      if (!isValidPassword)
+        errors.push("Senha incorreta")
 
-      await repository.delete({ id: userId });
+      if (errors.length > 0) {
+        return res.status(400).json(errors)
+      } else {
+        await repository.delete({ id: userId });
 
-      return res.json({
-        deleted: true 
-      })
+        return res.json({
+          deleted: true 
+        })
+      }
     } catch {
-      return res.status(400).json(null);
+      return res.status(400).json(["Ocorreu um erro inesperado"]);
     }
   }
 }
