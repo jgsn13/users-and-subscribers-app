@@ -105,7 +105,7 @@ class UserController {
           {
             full_name: full_name || user.full_name,
             email: email || user.email,
-            password: password || user.password,
+            password: bcrypt.hashSync(password, 8) || user.password,
           }
         )
 
