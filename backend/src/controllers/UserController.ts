@@ -83,7 +83,7 @@ class UserController {
 
       const emailExists = await repository.findOne({ where: { email } });
 
-      if (emailExists && (email !== user.email))
+      if (emailExists && !(email === user.email))
         errors.push("Email já existe")
 
       if (!!full_name && (full_name.length < 3 || full_name.length > 250))
