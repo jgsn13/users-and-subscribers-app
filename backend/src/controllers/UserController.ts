@@ -34,7 +34,7 @@ class UserController {
         errors.push("Senha precisa ter entre 6 e 50 caracteres")
 
       if (errors.length > 0) {
-        return res.status(400).json(errors)
+        return res.status(400).json({ errors })
       } else {
         const user = new User();
         user.full_name = full_name;
@@ -45,7 +45,7 @@ class UserController {
         return res.json(user);
       }
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -60,7 +60,7 @@ class UserController {
       delete user.password;
       return res.json(user);
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -96,7 +96,7 @@ class UserController {
         errors.push("Nova senha precisa ter entre 6 e 50 caracteres")
       
       if (errors.length > 0) {
-        return res.status(400).json(errors)
+        return res.status(400).json({ errors })
       } else {
         await repository.update(
           {
@@ -115,7 +115,7 @@ class UserController {
         return res.json(newUser);
       }
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -139,7 +139,7 @@ class UserController {
         errors.push("Senha incorreta")
 
       if (errors.length > 0) {
-        return res.status(400).json(errors)
+        return res.status(400).json({ errors })
       } else {
         await repository.delete({ id: userId });
 
@@ -148,7 +148,7 @@ class UserController {
         })
       }
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 }

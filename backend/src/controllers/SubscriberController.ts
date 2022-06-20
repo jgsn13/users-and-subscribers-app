@@ -60,7 +60,7 @@ class SubscriberController {
         errors.push("Descrição muito curta de onde soube do evento")
 
       if (errors.length > 0) {
-        return res.status(400).json(errors)
+        return res.status(400).json({ errors })
       } else {
         const subscriber = new Subscriber();
         subscriber.cpf = cpf;
@@ -78,7 +78,7 @@ class SubscriberController {
         return res.json(subscriber);
       }
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -89,7 +89,7 @@ class SubscriberController {
 
       return res.json(subscribers);
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -102,11 +102,11 @@ class SubscriberController {
       const subscriber = await repository.findOne({ where: { id } });
 
       if (!subscriber)
-        return res.status(400).json(["Inscrito não encontrado"])
+        return res.status(400).json({ errors: ["Inscrito não encontrado"] })
 
       return res.json(subscriber);
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -165,12 +165,11 @@ class SubscriberController {
       if (!!address && (address.length < 3))
         errors.push("Nome do endereço precisa ter no mínimo 3 caracteres")
 
-
       if (!!hear_about_the_event && (hear_about_the_event.length < 5))
         errors.push("Descrição muito curta de onde soube do evento")
 
       if (errors.length > 0) {
-        return res.status(400).json(errors)
+        return res.status(400).json({ errors })
       } else {
         await repository.update(
           {
@@ -196,7 +195,7 @@ class SubscriberController {
         return res.json(newSubscriber);
       }
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
@@ -212,13 +211,17 @@ class SubscriberController {
 
       if (!user) errors.push("Inscrito não encontrado")
 
-      await repository.delete({ id });
+      if (errors.length > 0) {
+        return res.status(400).json({ errors })
+      } else {
+        await repository.delete({ id });
 
-      return res.json({
-        deleted: true,
-      });
+        return res.json({
+          deleted: true,
+        });
+      }
     } catch {
-      return res.status(400).json(["Ocorreu um erro inesperado"]);
+      return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
   }
 
