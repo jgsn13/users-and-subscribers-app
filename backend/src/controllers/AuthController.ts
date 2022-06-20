@@ -16,27 +16,32 @@ class AuthController {
 
       const user = await repository.findOne({ where: { email } })
 
-      if (!user) {
-        return res.sendStatus(401);
-      }
+      const errors: String[] = []
+
+      if (!user) 
+        errors.push("Email não corresponde a nenhum usuário")
 
       const isValidPassword = await bcrypt.compare(password, user.password);
 
-      if (!isValidPassword) {
-        return res.sendStatus(401);
+      if (!isValidPassword)
+        errors.push("Senha incorreta")
+
+      if (errors.length > 0) {
+        return res.status(400).json({ errors })
+      } else {
+        const token =
+          jwt.sign({ id: user.id }, String(process.env.JWT_SECRET), { expiresIn: "1d" });
+
+        delete user.password;
+
+        return res.json({
+          user,
+          token,
+        })
       }
 
-      const token = jwt.sign({ id: user.id }, String(process.env.JWT_SECRET), { expiresIn: "1d" });
-
-      delete user.password;
-
-      return res.json({
-        user,
-        token,
-      })
-
-    } catch (error) {
-      return res.status(500).json({ error })
+    } catch {
+      return res.status(400).json(["Ocorreu um erro inesperado"]);
     }
   }
 }
