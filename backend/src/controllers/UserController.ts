@@ -86,13 +86,13 @@ class UserController {
       if (userExists)
         errors.push("Email já existe")
 
-      if (full_name.length < 3 || full_name.length > 250)
+      if (!!full_name && (full_name.length < 3 || full_name.length > 250))
         errors.push("Nome precisa ter entre 3 e 250 caracteres")
 
-      if (!validator.isEmail(email))
+      if (!!email && (!validator.isEmail(email)))
         errors.push("Email inválido")
 
-      if (password.length < 6 || full_name.length > 50)
+      if (!!password && (password.length < 6 || full_name.length > 50))
         errors.push("Nova senha precisa ter entre 6 e 50 caracteres")
       
       if (errors.length > 0) {
