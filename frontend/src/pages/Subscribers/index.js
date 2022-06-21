@@ -1,16 +1,21 @@
 import "./styles.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 import api, { statesApi } from "../../services/api";
 import { formatCPF } from "../../utils";
 
 import { Container } from "../../styles/GlobalStyles";
-import { SubscriberContainer } from "./styled";
+import { SubscriberContainer, Button } from "./styled";
 import { FaEdit, FaUserCircle, FaTrash } from "react-icons/fa";
 import SearchInput from "../../components/SearchInput";
+import Loading from "../../components/Loading";
 
 export default function Subscribers() {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+
   const [subscribers, setSubscribers] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [states, setStates] = useState([]);
@@ -18,15 +23,17 @@ export default function Subscribers() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true)
     api
       .get("/subscribers")
-      .then(({ data }) => setSubscribers(data.subscribers))
+      .then(({ data }) => setSubscribers(data))
       .catch((error) => console.log(error));
 
     statesApi
       .get("?orderBy=nome")
       .then(({ data }) => setStates(data))
       .catch((error) => console.log(error));
+    setLoading(false)
   }, [loading]);
 
   const handleChange = (event) => {
@@ -34,14 +41,25 @@ export default function Subscribers() {
     setSearchValue(value);
   };
 
+  const handleDelete = (id) => {
+    setLoading(true)
+    api.delete(`/subscriber/${id}`).then(({ data }) => {
+      if (data.deleted) {
+        window.location.reload()
+        toast.success("Inscrito deletado com sucesso")
+      }
+    }).catch(err => console.log(err))
+    setLoading(false)
+  }
+
   const getCities = ({ target }) => {
+    setLoading(true);
     const sigla = target.options[target.selectedIndex].value;
     if (!sigla) {
       setCities([]);
       setLoading(false);
       return;
     }
-    setLoading(true);
     statesApi
       .get(`/${sigla}/municipios?orderBy=nome`)
       .then(({ data }) => {
@@ -50,9 +68,9 @@ export default function Subscribers() {
           citiesName.push(city.nome.toLowerCase());
         });
         setCities(citiesName);
-        setLoading(false);
       })
       .catch((error) => console.log(error));
+    setLoading(false);
   };
 
   const filteredSubscribers = !!searchValue
@@ -65,6 +83,7 @@ export default function Subscribers() {
 
   return (
     <Container>
+      <Loading isLoading={loading} />
       <h1>Inscritos</h1>
       <div className="search-container">
         <SearchInput searchValue={searchValue} handleChange={handleChange} />
@@ -86,15 +105,15 @@ export default function Subscribers() {
         )}
       </div>
       <div>
-        <label for="states">
+        <label htmlFor="states">
           <b>Estado: </b>
-        </label>
-        <select name="states" onChange={getCities} className="select-state">
+          <select name="states" onChange={getCities} className="select-state">
           <option value="">---</option>
           {states.map((state) => (
-            <option value={state.sigla}>{state.nome}</option>
+            <option value={state.sigla} key={state.id}>{state.nome}</option>
           ))}
         </select>
+        </label>
       </div>
       {(filteredSubscribers.length > 0 && (
         <SubscriberContainer>
@@ -113,12 +132,13 @@ export default function Subscribers() {
                 <i>{subscriber.email}</i>
               </span>
               <span>{formatCPF(subscriber.cpf)}</span>
-              <Link to={`/subscriber/${subscriber.id}`}>
-                <FaEdit size={20} />
-              </Link>
-              <Link to={`/subscriber/${subscriber.id}`}>
-                <FaTrash size={20} />
-              </Link>
+              {isLoggedIn && (<>
+                  <Link to={`/subscriber/edit/${subscriber.id}`}>
+                    <FaEdit size={20} />
+                  </Link>
+                  <Button onClick={() => { handleDelete(subscriber.id) }}>
+                    <FaTrash size={20} />
+                  </Button></>)}
             </div>
           ))}
         </SubscriberContainer>

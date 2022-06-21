@@ -5,7 +5,7 @@ export default (reducers) => {
   const persistConfig = {
     key: 'users_and_subscribers',
     storage,
-    whiteList: ["logger"]
+    whiteList: ["auth"]
   }
 
   const persistedReducer = persistReducer(persistConfig, reducers)

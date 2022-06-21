@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "../../config/colors";
 
 export const SubscriberContainer = styled.div`
   margin-top: 20px;
@@ -42,3 +43,14 @@ export const SubscriberContainer = styled.div`
     color: #eeeeee;
   }
 `;
+
+export const Button = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 0;
+  margin-left: 3px;
+  background: #ffffff;
+  color: ${colors.primaryColor};
+`
