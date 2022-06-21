@@ -136,7 +136,7 @@ class SubscriberController {
 
       const cpfExists = await repository.findOne({ where: { cpf } });
 
-      if (!!cpf && cpfExists)
+      if (cpfExists && !(cpf === subscriber.cpf))
         errors.push("CPF já existe")
 
       const emailExists = await repository.findOne({ where: { email } });
