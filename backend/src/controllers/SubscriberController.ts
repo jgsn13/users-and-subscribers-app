@@ -40,7 +40,7 @@ class SubscriberController {
       if (!validator.isEmail(email))
         errors.push("Email inválido")
 
-      if (phone_number.length !== 11)
+      if (!!phone_number && (phone_number.length !== 11))
         errors.push("Telefone precisa ter 11 dígitos (DDD + número com 9 dígitos)")
 
       if (cep.length !== 8)
