@@ -179,13 +179,13 @@ class SubscriberController {
             cpf: cpf || subscriber.cpf,
             full_name: full_name || subscriber.full_name,
             email: email || subscriber.email,
-            phone_number: phone_number || subscriber.phone_number,
+            phone_number: phone_number || "",
             cep: cep || subscriber.cep,
             city: city || subscriber.city,
             neighborhood: neighborhood || subscriber.neighborhood,
             address: address || subscriber.address,
-            number: number || subscriber.number,
-            address_2: address_2 || subscriber.address_2,
+            number: number || "",
+            address_2: address_2 || "",
             hear_about_the_event: hear_about_the_event || subscriber.hear_about_the_event,
           }
         )
