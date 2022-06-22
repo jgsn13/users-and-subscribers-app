@@ -20,7 +20,6 @@ export default function Subscriber() {
       .get(`/subscriber/${id}`)
       .then(({ data }) => {
         data.cpf = formatCPF(data.cpf);
-        data.phone_number = formatPhoneNumber(data.phone_number);
         data.cep = formatCEP(data.cep);
         setSubscriber(data);
       })
@@ -43,14 +42,11 @@ export default function Subscriber() {
             <b>Email: </b>
             <i>{subscriber.email}</i>
           </span>
-          {!!subscriber.phone_number ? (
+          {!!subscriber.phone_number && (
             <span>
               <b>Telefone: </b>
-              {subscriber.phone_number}
-            </span>
-          ) : (
-            ""
-          )}
+              {formatPhoneNumber(subscriber.phone_number)}
+            </span>)}
           <span>
             <b>CEP: </b>
             {subscriber.cep}
@@ -67,21 +63,17 @@ export default function Subscriber() {
             <b>Endereço: </b>
             {subscriber.address}
           </span>
-          {!!subscriber.number ? (
+          {!!subscriber.number && (
             <p>
               <b>Número: </b>
               {subscriber.number}
             </p>
-          ) : (
-            ""
           )}
-          {!!subscriber.address_2 ? (
+          {!!subscriber.address_2 && (
             <p>
               <b>Complemento: </b>
               {subscriber.address_2}
             </p>
-          ) : (
-            ""
           )}
           <span>
             <b>Por onde soube do evento: </b>
