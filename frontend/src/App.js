@@ -6,7 +6,7 @@ import Routing from "./routes";
 import history from "./services/history";
 
 import store, { persistor } from "./store"
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { ToastContainer } from "react-toastify";

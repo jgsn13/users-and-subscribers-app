@@ -11,11 +11,7 @@ import AddSubscriber from "../pages/AddSubscriber";
 import EditSubscriber from "../pages/EditSubscriber";
 import Page404 from "../pages/Page404";
 
-import { useSelector } from "react-redux";
-
 export default function Routing() {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
-
   return (
     <Routes>
       <Route exact path="/" element={<Subscribers />} />

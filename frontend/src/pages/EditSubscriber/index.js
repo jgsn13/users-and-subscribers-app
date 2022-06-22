@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 
 import { Container } from "../../styles/GlobalStyles";
 import { Form } from "./styled";
-import Loading from "../../components/Loading";
+import { LoadingContainer } from "./styled";
 
 import api, { cepApi } from "../../services/api";
 import history from "../../services/history";
@@ -37,7 +37,7 @@ export default function EditSubscriber() {
         setCPF(data.cpf)
         setFullName(data.full_name)
         setEmail(data.email)
-        setPhoneNumber(data.phone_number || " ")
+        setPhoneNumber(data.phone_number || "")
         setCEP(data.cep)
         setCity(data.city)
         setNeighborhood(data.neighborhood)
@@ -145,7 +145,10 @@ export default function EditSubscriber() {
 
   return (
     <Container style={{ maxWidth: "500px", minWidth: "300px" }}>
-      <Loading isLoading={loading} />
+      {loading && (<LoadingContainer>
+        <div />
+        <span>Carregando...</span>
+      </LoadingContainer>)}
 
       <h1>Editar inscrito</h1>
 

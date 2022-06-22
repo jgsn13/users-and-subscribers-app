@@ -1,7 +1,7 @@
 import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 
-export default (reducers) => {
+const persistFunction = (reducers) => {
   const persistConfig = {
     key: 'users_and_subscribers',
     storage,
@@ -12,3 +12,5 @@ export default (reducers) => {
 
   return persistedReducer;
 }
+
+export default persistFunction;
