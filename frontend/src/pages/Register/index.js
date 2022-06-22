@@ -19,24 +19,18 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let formErrors = false;
 
     if (fullName.length < 3 || fullName.length > 255) {
-      formErrors = true;
-      toast.error("Nome deve ter entre 3 e 255 caracteres");
+      return toast.error("Nome deve ter entre 3 e 255 caracteres");
     }
 
     if (!isEmail(email)) {
-      formErrors = true;
-      toast.error("Email inválido");
+      return toast.error("Email inválido");
     }
 
     if (password.length < 6 || password.length > 50) {
-      formErrors = true;
-      toast.error("Senha deve ter entre 6 e 50 caracteres");
+      return toast.error("Senha deve ter entre 6 e 50 caracteres");
     }
-
-    if (formErrors) return;
 
     setLoading(true)
     try {

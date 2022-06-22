@@ -27,14 +27,12 @@ export default function EditUser() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let formErrors = false;
 
     const payload = {}
 
     if (!!fullName) {
       if (fullName.length < 3 || fullName.length > 255) {
-        formErrors = true;
-        toast.error("Nome deve ter entre 3 e 255 caracteres");
+        return toast.error("Nome deve ter entre 3 e 255 caracteres");
       }
       payload.full_name = fullName;
     } else {
@@ -43,8 +41,7 @@ export default function EditUser() {
 
     if (!!inputEmail) {
       if (!isEmail(inputEmail)) {
-        formErrors = true;
-        toast.error("Email inválido");
+        return toast.error("Email inválido");
       }
       payload.email = inputEmail;
     } else {
@@ -53,8 +50,7 @@ export default function EditUser() {
 
     if (!!newPassword) {
       if (newPassword.length < 6 || newPassword.length > 50) {
-        formErrors = true;
-        toast.error("Nova senha deve ter entre 6 e 50 caracteres");
+        return toast.error("Nova senha deve ter entre 6 e 50 caracteres");
       }
       payload.password = newPassword;
     } else {
@@ -62,13 +58,10 @@ export default function EditUser() {
     }
 
     if (!currentPassword) {
-      formErrors = true;
-      toast.error("Você precisa digitar a senha atual para atualizar os dados");
+      return toast.error("Você precisa digitar a senha atual para atualizar os dados");
     } else {
       payload.current_password = currentPassword;
     }
-
-    if (formErrors) return;
 
     dispatch(editUserRequest(payload))
   }

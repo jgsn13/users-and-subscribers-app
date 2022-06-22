@@ -68,69 +68,54 @@ export default function EditSubscriber() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let formErrors = false;
 
     if (cpf.length !== 11) {
-      formErrors = true;
-      toast.error("CPF precisa ter 11 dígitos");
+      return toast.error("CPF precisa ter 11 dígitos");
     }
 
     if (!cpfValidator(cpf)) {
-      formErrors = true;
-      toast.error("CPF Inválido");
+      return toast.error("CPF Inválido");
     }
 
     if (fullName.length < 3 || fullName.length > 255) {
-      formErrors = true;
-      toast.error("Nome deve ter entre 3 e 255 caracteres");
+      return toast.error("Nome deve ter entre 3 e 255 caracteres");
     }
 
     if (!isEmail(email)) {
-      formErrors = true;
-      toast.error("Email inválido");
+      return toast.error("Email inválido");
     }
 
     if (!!phoneNumber && (phoneNumber.length !== 11)) {
-      formErrors = true;
-      toast.error("Telefone precisa ter 11 dígitos");
+      return toast.error("Telefone precisa ter 11 dígitos");
     }
 
     if (!!phoneNumber && !Number(phoneNumber)) {
-      formErrors = true;
-      toast.error("Telefone precisa conter apenas dígitos");
+      return toast.error("Telefone precisa conter apenas dígitos");
     }
 
     if (cep.length !== 8) {
-      formErrors = true;
-      toast.error("CEP precisa ter 11 dígitos");
+      return toast.error("CEP precisa ter 11 dígitos");
     }
 
     if (!Number(cep.replace(/\D/g,''))) {
-      formErrors = true;
-      toast.error("CEP precisa conter apenas dígitos");
+      return toast.error("CEP precisa conter apenas dígitos");
     }
 
     if (neighborhood.length < 3) {
-      formErrors = true;
-      toast.error("Bairro precisa ter no mínimo 3 caracteres");
+      return toast.error("Bairro precisa ter no mínimo 3 caracteres");
     }
 
     if (address.length < 3) {
-      formErrors = true;
-      toast.error("Endereço precisa ter no mínimo 3 caracteres");
+      return toast.error("Endereço precisa ter no mínimo 3 caracteres");
     }
 
     if (!!number && (!Number(number))) {
-      formErrors = true;
-      toast.error("Número precisa conter apenas dígitos");
+      return toast.error("Número precisa conter apenas dígitos");
     }
 
     if (hearAbout.length < 5) {
-      formErrors = true;
-      toast.error("Descrição muito curta de onde soube do evento");
+      return toast.error("Descrição muito curta de onde soube do evento");
     }
-
-    if (formErrors) return;
 
     setLoading(true)
     try {
