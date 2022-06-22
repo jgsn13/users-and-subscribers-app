@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import history from "../../../services/history";
+
 const initialState = {
   isLoggedIn: false,
   token: "",
@@ -19,6 +21,7 @@ const authSlice = createSlice({
       state.token = action.payload.token
       state.user = action.payload.user
       state.isLoading = false;
+      history.push("/")
     },
     loginFailure: (state, _action) => {
       state.isLoggedIn = initialState.isLoggedIn

@@ -39,7 +39,7 @@ export default function Routing() {
       />
       <Route exact path="/subscriber/:id" element={<Subscriber />} />
       <Route exact path="/login" element={<Login />} />
-      {isLoggedIn && <Route exact path="/user/register" element={<Register />} />}
+      <Route exact path="/user/register" element={<Register />} />
       <Route
         exact
         path="/user"
