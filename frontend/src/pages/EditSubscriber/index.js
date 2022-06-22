@@ -33,7 +33,6 @@ export default function EditSubscriber() {
     api
       .get(`/subscriber/${id}`)
       .then(({ data }) => {
-        console.log(data)
         setCPF(data.cpf)
         setFullName(data.full_name)
         setEmail(data.email)
