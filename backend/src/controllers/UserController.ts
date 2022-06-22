@@ -124,29 +124,12 @@ class UserController {
       const repository = AppDataSource.getRepository(User);
 
       const { userId } = req;
-      const user = await repository.findOne({ where: { id: userId } });
 
-      const { password } = req.body;
+      await repository.delete({ id: userId });
 
-      const errors: String[] = []
-
-      if (!password)
-        errors.push("Faltando a senha")
-
-      const isValidPassword = await bcrypt.compare(password, user.password);
-
-      if (!isValidPassword)
-        errors.push("Senha incorreta")
-
-      if (errors.length > 0) {
-        return res.status(400).json({ errors })
-      } else {
-        await repository.delete({ id: userId });
-
-        return res.json({
-          deleted: true 
-        })
-      }
+      return res.json({
+        deleted: true 
+      })
     } catch {
       return res.status(400).json({ errors: ["Ocorreu um erro inesperado"] });
     }
