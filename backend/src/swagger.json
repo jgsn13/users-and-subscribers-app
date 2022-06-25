@@ -53,7 +53,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/ResponseUser"
                         }
                     }
                 }
@@ -72,7 +72,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/ResponseUser"
                         }
                     }
                 },
@@ -109,7 +109,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "$ref": "#/definitions/User"
+                            "$ref": "#/definitions/ResponseUser"
                         }
                     }
                 },
@@ -416,6 +416,17 @@
                     "type": "string"
                 },
                 "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "ResponseUser": {
+            "type": "object",
+            "properties": {
+                "full_name": {
+                    "type": "string"
+                },
+                "email": {
                     "type": "string"
                 }
             }
