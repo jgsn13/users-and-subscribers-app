@@ -30,7 +30,7 @@ class UserController {
       if (!validator.isEmail(email))
         errors.push("Email inválido")
 
-      if (password.length < 6 || full_name.length > 50)
+      if (password.length < 6 || password.length > 50)
         errors.push("Senha precisa ter entre 6 e 50 caracteres")
 
       if (errors.length > 0) {
@@ -92,7 +92,7 @@ class UserController {
       if (!!email && (!validator.isEmail(email)))
         errors.push("Email inválido")
 
-      if (!!password && (password.length < 6 || full_name.length > 50))
+      if (!!password && (password.length < 6 || password.length > 50))
         errors.push("Nova senha precisa ter entre 6 e 50 caracteres")
       
       if (errors.length > 0) {
